@@ -1,0 +1,26 @@
+either:
+- test -w /tmp/testfile.txt
+- [ -w /tmp/testfile.txt ] && echo "File is writable" || echo "File is not writable"
+
+Scenario Question:
+Write a Bash script that checks if a file exists at /tmp/testfile.txt.
+If the file exists and is writable, print "File is writable".
+If the file exists but is not writable, change its permissions to allow writing and print "Permissions updated".
+If the file does not exist, create it and ensure it's writable.
+
+#!/bin/bash
+
+FILE="/tmp/testfile.txt" #Why /tmp? /tmp is a temporary directory accessible to all users, often used for testing.
+
+if [ -w "$FILE" ];
+then
+    echo "File is writable"
+elif [ -e "$FILE" ]; then
+    echo "It exists but its not writeable"
+    chmod +w "$FILE"
+    echo "Permissions updated"
+else
+    echo "File does not exist"
+    touch "$FILE"
+    chmod +w "$FILE"
+fi

@@ -1,0 +1,32 @@
+Scenario Question:
+Checks if a file exists at /tmp/testfile.txt.
+If the file exists and is writable, print "File is writable".
+If the file exists but is not writable, change its permissions to allow writing and print "Permissions updated".
+If the file exists and has a size greater than 100 bytes, print "File is large".
+If the file exists but has a size of 0 bytes, print "File is empty".
+If the file does not exist, print "File not found".
+If the file is found and writable, delete it and print "File deleted".
+
+-gt (greater than)
+-eq (equal)
+-lt (Less than)
+
+You can use {} to replace the if-then. To say '!' you'd use || for this situation:
+[____] || { command1; command2; }
+
+Note: you don't need the {} if its only 1 command.
+---------------------------------------------------------------------------------------------------------------------------
+
+#!/bin/bash
+
+FILE="/tmp/testfile.txt"
+
+[ -e "$FILE" ] || { touch "$FILE"; echo "File not found. File created."; }
+[ -w "$FILE" ] || chmod +w "$FILE"
+
+size=$(stat -c %s "$FILE")
+
+[ "$size" -gt 100 ] && echo "File is large"
+[ "$size" -eq 0 ] && echo "File is empty"
+
+rm "$FILE" && echo "File deleted"

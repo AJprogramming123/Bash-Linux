@@ -1,0 +1,30 @@
+How to check if a file exists inside a directory: -e /path/to/file
+Example:
+if [ -e /path/to/file ]; then
+	echo "File exists"
+else
+	echo "File does not exist"
+fi
+
+Scenario Question:
+Write a script that checks if a file exists in the /tmp directory. If it exists, print "File exists". Otherwise, create the file and print "File created".
+
+#!/bin/bash
+
+FILE="/Codepath/etc/monkey.txt"
+
+if [ -e "$FILE" ];
+then
+    echo "File exists"
+else
+    echo "File does not exist. Creating it now..."
+    touch "$FILE"
+    echo "File created"
+fi
+
+
+
+Now why does this work?
+There's something called 'test'/ [__] (Test brackets)
+- test -e /codepath/user/etc/monkey 
+- [ -e /codepath/user/etc/monkey ]

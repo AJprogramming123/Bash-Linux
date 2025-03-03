@@ -1,0 +1,26 @@
+Scenario Question:
+Checks if a file exists at /tmp/oldfile.txt.
+If the file exists and is readable, print "File is readable".
+If the file exists but is not readable, change its permissions to allow reading and print "Permissions updated".
+If the file does not exist, print "File not found".
+If the file is found and readable, delete it and print "File deleted".
+
+
+#!/bin/bash
+
+FILE="/tmp/oldfile.txt"
+
+if [ -e "$FILE" ] && [ -r "$FILE" ]; then
+    echo "File exists and is readable"
+    rm "$FILE"
+    echo "File deleted"
+elif [ -e "$FILE" ] && [ ! -r "$FILE" ]; then
+    echo "File exists but is not readable"
+    chmod +r "$FILE"
+    echo "Permissions updated"
+elif [ ! -e "$FILE" ]; then
+    echo "File not found"
+fi
+
+! <- (NOT)
+you can also use it in a Linux command: '! ls /nonexistent'
